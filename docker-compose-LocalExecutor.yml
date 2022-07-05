@@ -1,5 +1,10 @@
 version: '3.7'
 services:
+    monkedb:
+        image: 'mongo:4.4.6'
+        container_name: 'monke'
+        ports:
+            -   '27017:27017'
     postgres:
         image: postgres:9.6
         environment:
@@ -24,7 +29,9 @@ services:
                 max-size: 10m
                 max-file: "3"
         volumes:
+            - ./csv/tiktok_google_play_reviews.csv:/usr/local/airflow/csv/tiktok_google_play_reviews.csv
             - ./dags:/usr/local/airflow/dags
+            - ./requirements.txt:/requirements.txt
             # - ./plugins:/usr/local/airflow/plugins
         ports:
             - "8080:8080"
